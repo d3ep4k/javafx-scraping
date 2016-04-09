@@ -68,7 +68,7 @@ public class FXMLController implements Initializable {
                             link = rp.getPageLink(iterations);
                             updateMessage((int) (iterations / (float) records * 100)
                                     + "% Done : " + "Writing record " + (iterations + 1));
-                            rp.writeRecord(link);
+                            rp.writeRecord(link, writer);
                             updateProgress(iterations, records);
                         } catch (IOException ex) {
                             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
