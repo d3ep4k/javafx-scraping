@@ -19,6 +19,8 @@ public class MainApp extends Application {
         
         stage.setTitle("Village Ration Card Information");
         stage.setScene(scene);
+        FXMLController ctrl = new FXMLController();
+        
         stage.show();
     }
 

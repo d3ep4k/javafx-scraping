@@ -28,6 +28,8 @@ public class FXMLController implements Initializable {
     ProgressBar progress;
     Task<Void> task;
 
+    Processable rp;
+
     @FXML
     public void handleClick() {
         progress.progressProperty().bind(task.progressProperty());
@@ -39,22 +41,27 @@ public class FXMLController implements Initializable {
             @Override
             public void handle(WorkerStateEvent event) {
                 button.setDisable(false);
-                initTask();
+                initTask(rp);
             }
         });
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initTask();
+        try {
+            rp = new RationProcess(linkField.getText());
+            initTask(rp);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    private void initTask() {
+    private void initTask(Processable rp) {
         task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 updateMessage("Fetching Records in page.");
-                Processable rp = new RationProcess(linkField.getText());
+
                 int records = rp.getRecordCount();
 
                 rp.process(fileNameField.getText(), (FileWriter writer) -> {
