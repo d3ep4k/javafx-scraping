@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="254.0" prefWidth="347.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="village.user.details.FXMLController">
+    <children>
+        <Button fx:id="button" layoutX="46.0" layoutY="137.0" onAction="#handleClick" text="Process" />
+      <TextField fx:id="linkField" layoutX="46.0" layoutY="31.0" promptText="Add Link" />
+      <TextField fx:id="fileNameField" layoutX="46.0" layoutY="76.0" promptText="File Name" />
+      <ProgressBar fx:id="progress" layoutX="46.0" layoutY="196.0" prefWidth="200.0" progress="0.0" />
+      <Label fx:id="statusLabel" layoutX="46.0" layoutY="223.0" />
+    </children>
+</AnchorPane>
