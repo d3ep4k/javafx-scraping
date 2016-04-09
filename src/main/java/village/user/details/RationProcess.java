@@ -16,7 +16,7 @@ import org.jsoup.nodes.Element;
  *
  * @author VINAY
  */
-public class RationProcess {
+public class RationProcess implements Processable{
 
     Element tbody;
 
@@ -24,6 +24,7 @@ public class RationProcess {
         tbody = getTbody(url);
     }
 
+    @Override
     public void process(String fileName, WritableRecord record) throws IOException {
 
         try (FileWriter writer = new FileWriter(fileName)) {
@@ -48,6 +49,7 @@ public class RationProcess {
         }
     }
 
+    @Override
     public void writeRecord(String url, FileWriter writer) {
         try {
 
@@ -110,6 +112,7 @@ public class RationProcess {
         return link;
     }
 
+    @Override
     public int getRecordCount() throws IOException {
         return tbody.childNodeSize() - 6;
 //        doc.outputSettings().charset("UTF-8");
@@ -181,7 +184,3 @@ class User {
 
 }
 
-interface WritableRecord {
-
-    public void write(FileWriter writer);
-}

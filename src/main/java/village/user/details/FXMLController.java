@@ -54,7 +54,7 @@ public class FXMLController implements Initializable {
             @Override
             protected Void call() throws Exception {
                 updateMessage("Fetching Records in page.");
-                RationProcess rp = new RationProcess(linkField.getText());
+                Processable rp = new RationProcess(linkField.getText());
                 int records = rp.getRecordCount();
 
                 rp.process(fileNameField.getText(), (FileWriter writer) -> {
