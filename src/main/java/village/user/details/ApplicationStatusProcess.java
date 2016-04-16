@@ -38,8 +38,8 @@ public class ApplicationStatusProcess implements Processable {
             writer.append("Application Number,");
             writer.append("Applicant Name,");
             writer.append("Husband/Father Name,");
-            writer.append("Application Status,");
-            writer.append("Process report");
+            writer.append("Application Status");
+//            writer.append("Process report");
             writer.append('\n');
 
             record.write(writer);
@@ -50,6 +50,9 @@ public class ApplicationStatusProcess implements Processable {
     public void writeRecord(String url, FileWriter writer) {
         try {
             Document doc = Jsoup.connect(url)
+                    .ignoreContentType(true)
+                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                    .referrer("http://www.google.com")
                     .timeout(12000)
                     .get();
             Elements tableData = doc.select("#DetailsView1 td");
@@ -59,6 +62,7 @@ public class ApplicationStatusProcess implements Processable {
                 writer.append(e.text());
                 writer.append(',');
             }
+            writer.append(doc.select("#status").first().text());
             writer.append('\n');
         } catch (IOException ex) {
             Logger.getLogger(ApplicationStatusProcess.class.getName()).log(Level.SEVERE, null, ex);
