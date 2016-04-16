@@ -7,6 +7,12 @@ package village.user.details;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * http://164.100.181.28/edistrict/showAppDetails.aspx?xzatx=16580040000997
@@ -16,24 +22,58 @@ import java.io.IOException;
  */
 public class ApplicationStatusProcess implements Processable {
 
+    long start, end;
+
+    public ApplicationStatusProcess(String range) {
+        String limits[] = range.split("-");
+        start = new Integer(limits[0]);
+        end = new Integer(limits[1]);
+    }
+
     @Override
-    public void process(String file, WritableRecord writable) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void process(String file, WritableRecord record) throws IOException {
+        try (FileWriter writer = new FileWriter(file)) {
+            //headers
+            writer.append("Seva Name,");
+            writer.append("Application Number,");
+            writer.append("Applicant Name,");
+            writer.append("Husband/Father Name,");
+            writer.append("Application Status,");
+            writer.append("Process report");
+            writer.append('\n');
+
+            record.write(writer);
+        }
     }
 
     @Override
     public void writeRecord(String url, FileWriter writer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Document doc = Jsoup.connect(url)
+                    .timeout(12000)
+                    .get();
+            Elements tableData = doc.select("#DetailsView1 td");
+            //odd loop
+            for (int i = 2; i < tableData.size(); i = i + 2) {
+                Element e = tableData.get(i);
+                writer.append(e.text());
+                writer.append(',');
+            }
+            writer.append('\n');
+        } catch (IOException ex) {
+            Logger.getLogger(ApplicationStatusProcess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
     public int getRecordCount() throws IOException {
-        return 100;
+        return (int) (end - start + 1);
     }
 
     @Override
     public String getPageLink(int recordNo) throws IOException {
-        return "http://164.100.181.28/edistrict/showStatushome.aspx?application_no=16580040000997";
+        return "http://164.100.181.28/edistrict/showStatushome.aspx?application_no=1658004" + String.format("%07d", (start + recordNo));
     }
 
 }

@@ -2,21 +2,17 @@ package village.user.details;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 
-public class FXMLController implements Initializable {
+public class FXMLController {
 
     @FXML
     TextField linkField, fileNameField;
@@ -28,34 +24,29 @@ public class FXMLController implements Initializable {
     ProgressBar progress;
     Task<Void> task;
 
-    Processable rp;
 
     @FXML
     public void handleClick() {
+        initTask(new ApplicationStatusProcess(linkField.getText()));
         progress.progressProperty().bind(task.progressProperty());
         statusLabel.textProperty().bind(task.messageProperty());
         new Thread(task).start();
         button.setDisable(true);
 
-        task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                button.setDisable(false);
-                initTask(rp);
-            }
+        task.setOnSucceeded((WorkerStateEvent event) -> {
+            button.setDisable(false);
         });
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            rp = new RationProcess(linkField.getText());
-            initTask(rp);
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+//    @Override
+//    public void initialize(URL location, ResourceBundle resources) {
+//        try {
+//            rp = new RationProcess(linkField.getText());
+//            initTask(rp);
+//        } catch (IOException ex) {
+//            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     private void initTask(Processable rp) {
         task = new Task<Void>() {
             @Override
