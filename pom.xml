@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mycompany</groupId>
-    <artifactId>village-user-details</artifactId>
+    <groupId>com.metamug</groupId>
+    <artifactId>javafx-scraping</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -122,5 +122,5 @@
             </plugin>
         </plugins>
     </build>
-
+    <description>Web Scraping using JSoup and JavaFX</description>
 </project>

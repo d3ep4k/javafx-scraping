@@ -22,7 +22,7 @@ import org.jsoup.select.Elements;
  */
 public class ApplicationStatusProcess implements Processable {
 
-    long start, end;
+    int start, end, year, districtCode, applicationCode;
 
     public ApplicationStatusProcess(String range) {
         String limits[] = range.split("-");
