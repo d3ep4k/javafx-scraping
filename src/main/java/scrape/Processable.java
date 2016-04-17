@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package village.user.details;
+package scrape;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,7 +23,4 @@ interface Processable {
     public String getPageLink(int recordNo) throws IOException;
 }
 
-interface WritableRecord {
 
-    public void write(FileWriter writer);
-}

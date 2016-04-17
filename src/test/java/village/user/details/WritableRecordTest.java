@@ -5,6 +5,7 @@
  */
 package village.user.details;
 
+import scrape.WritableRecord;
 import java.io.FileWriter;
 import org.junit.Test;
 import static org.junit.Assert.*;

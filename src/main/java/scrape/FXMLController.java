@@ -1,4 +1,4 @@
-package village.user.details;
+package scrape;
 
 import java.io.FileWriter;
 import java.io.IOException;
