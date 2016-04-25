@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -26,8 +28,16 @@ public class ApplicationStatusProcess implements Processable {
 
     public ApplicationStatusProcess(String range) {
         String limits[] = range.split("-");
-        start = new Integer(limits[0]);
-        end = new Integer(limits[1]);
+        Pattern p = Pattern.compile("\\d+(\\d{7})");
+        Matcher m = p.matcher(limits[0]);
+        if (m.find()) {
+            start = new Integer(m.group(1));
+        }
+
+        m = p.matcher(limits[1]);
+        if (m.find()) {
+            end = new Integer(m.group(1));
+        }
     }
 
     @Override

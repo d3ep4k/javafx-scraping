@@ -17,7 +17,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
-        stage.setTitle("Village Ration Card Information");
+        stage.setTitle("Application Status Process");
         stage.setScene(scene);
         FXMLController ctrl = new FXMLController();
         
